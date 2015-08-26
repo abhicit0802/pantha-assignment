@@ -1,0 +1,8 @@
+com\xebia\app\services\CustomerService.class
+com\xebia\app\models\Customer.class
+com\xebia\app\models\CustomersCollection.class
+com\xebia\app\controllers\CustomersController.class
+com\xebia\app\utils\CsvUtil.class
+com\xebia\app\Application.class
+com\xebia\app\controllers\HomeController.class
+com\xebia\app\repositories\CustomerRepository.class
