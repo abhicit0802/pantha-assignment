@@ -25,7 +25,6 @@ public class OrderService {
     }
 
     public boolean create(Order order) throws InvalidOrderException{
-        System.out.println(order.getCustomerId()+" "+order.getName());
         try {
             orderRepository.save(order);
             return true;
@@ -56,7 +55,5 @@ public class OrderService {
         }catch (Exception e){
             throw new OrderNotFoundException("order record not found for order id -"+id);
         }
-
     }
-
 }
