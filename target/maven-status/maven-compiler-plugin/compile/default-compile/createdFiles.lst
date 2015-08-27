@@ -1,8 +1,14 @@
 com\xebia\app\services\CustomerService.class
 com\xebia\app\models\Customer.class
-com\xebia\app\models\CustomersCollection.class
 com\xebia\app\controllers\CustomersController.class
+com\xebia\app\models\Order.class
+com\xebia\app\repositories\CustomerRepository.class
+com\xebia\app\controllers\OrdersController.class
+com\xebia\app\dto\OrderDto.class
+com\xebia\app\exceptions\CustomerNotFoundException.class
+com\xebia\app\models\CustomersCollection.class
+com\xebia\app\services\OrderService.class
 com\xebia\app\utils\CsvUtil.class
 com\xebia\app\Application.class
 com\xebia\app\controllers\HomeController.class
-com\xebia\app\repositories\CustomerRepository.class
+com\xebia\app\repositories\OrderRepository.class

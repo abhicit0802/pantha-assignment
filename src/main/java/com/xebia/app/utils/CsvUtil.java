@@ -1,6 +1,7 @@
 package com.xebia.app.utils;
 
 
+import com.xebia.app.exceptions.CustomerNotFoundException;
 import com.xebia.app.models.Customer;
 import lombok.AllArgsConstructor;
 
@@ -13,21 +14,20 @@ public class CsvUtil {
 
     private String csvName;
 
-    public List<Customer> read()throws IOException{
+    public List<Customer> read()throws IOException, CustomerNotFoundException{
         BufferedReader br = new BufferedReader(new FileReader("src//main//resources//"+csvName));
         String line = null;
         List<Customer> customers = new ArrayList<>();
+        String[] data = null;
         while ((line = br.readLine()) != null) {
-            String[] data = line.split(",");
+            try {
+                 data = line.split(",");
+            }catch (ArrayIndexOutOfBoundsException e){
+                throw new CustomerNotFoundException("no records found in the csv");
+            }
             Customer c = new Customer(data[0],data[1]);
             customers.add(c);
         }
         return customers;
-    }
-
-    public static void main(String []a) throws Exception{
-        CsvUtil c = new CsvUtil("customers.csv");
-        List<Customer> customers = c.read();
-        System.out.println(customers);
     }
 }
