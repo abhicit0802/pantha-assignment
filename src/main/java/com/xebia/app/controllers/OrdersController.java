@@ -1,6 +1,7 @@
 package com.xebia.app.controllers;
 
 import com.xebia.app.exceptions.InvalidOrderException;
+import com.xebia.app.exceptions.OrderNotFoundException;
 import com.xebia.app.models.Order;
 import com.xebia.app.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class OrdersController {
             orderService.create(order);
             return new ResponseEntity<>("created", HttpStatus.CREATED);
         }catch (InvalidOrderException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -36,14 +37,13 @@ public class OrdersController {
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-
     }
 
     @RequestMapping(value = "/{id}" , method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable("id") String id){
         try {
             return new ResponseEntity(orderService.findOne(id), HttpStatus.OK);
-        }catch (Exception e){
+        }catch (OrderNotFoundException e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }

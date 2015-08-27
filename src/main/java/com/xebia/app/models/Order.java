@@ -13,7 +13,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Document
 public class Order implements Serializable{
-
     @Id
     @JsonProperty("id")
     private String id;
