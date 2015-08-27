@@ -2,6 +2,8 @@ package com.xebia.app.services;
 
 
 import com.xebia.app.dto.OrderDto;
+import com.xebia.app.exceptions.InvalidOrderException;
+import com.xebia.app.exceptions.OrderNotFoundException;
 import com.xebia.app.models.Customer;
 import com.xebia.app.models.Order;
 import com.xebia.app.repositories.OrderRepository;
@@ -22,27 +24,39 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public boolean create(Order order){
+    public boolean create(Order order) throws InvalidOrderException{
         System.out.println(order.getCustomerId()+" "+order.getName());
-      orderRepository.save(order);
-        return true;
+        try {
+            orderRepository.save(order);
+            return true;
+        }catch (Exception e){
+          throw new InvalidOrderException("invalid order record");
+        }
     }
 
-    public List<OrderDto> getAll(){
+    public List<OrderDto> getAll() throws OrderNotFoundException{
       List<Order> orders = orderRepository.findAll();
         List<OrderDto> orderDtos = new ArrayList<>();
-        for(Order o : orders){
+        try {
+            for (Order o : orders) {
                 Customer c = customerService.findById(o.getCustomerId());
                 orderDtos.add(new OrderDto(o, c));
+            }
+            return orderDtos;
+        }catch (Exception e){
+            throw new OrderNotFoundException("No order records found");
         }
-        return orderDtos;
     }
 
-    public OrderDto findOne(String id){
-        Order order = orderRepository.findOne(id);
-        Customer customer = customerService.findById(id);
+    public OrderDto findOne(String id)throws OrderNotFoundException{
+        try {
+            Order order = orderRepository.findOne(id);
+            Customer customer = customerService.findById(id);
+            return new OrderDto(order,customer);
+        }catch (Exception e){
+            throw new OrderNotFoundException("order record not found for order id -"+id);
+        }
 
-        return new OrderDto(order,customer);
     }
 
 }
