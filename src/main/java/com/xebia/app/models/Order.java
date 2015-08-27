@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
+@ToString
 @Document
 public class Order implements Serializable{
     @Id

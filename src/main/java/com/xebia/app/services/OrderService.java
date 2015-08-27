@@ -26,9 +26,11 @@ public class OrderService {
 
     public boolean create(Order order) throws InvalidOrderException{
         try {
+            System.out.println(order);
             orderRepository.save(order);
             return true;
         }catch (Exception e){
+            e.printStackTrace();
           throw new InvalidOrderException("invalid order record");
         }
     }
@@ -43,6 +45,7 @@ public class OrderService {
             }
             return orderDtos;
         }catch (Exception e){
+            e.printStackTrace();
             throw new OrderNotFoundException("No order records found");
         }
     }
